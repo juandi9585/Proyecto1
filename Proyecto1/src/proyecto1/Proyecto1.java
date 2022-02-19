@@ -18,7 +18,7 @@ public class Proyecto1 {
      */
     public static void main(String[] args) {
         try{
-        Grafo grafo = new Grafo("C:\\Users\\hp\\Documents\\UNIMET\\Estructuras de Datos\\Proyectos\\Proyecto1\\info.txt");
+        Grafo grafo = new Grafo("C:\\Users\\jedar\\Documents\\info.txt");
         }catch(Exception e){
             e.printStackTrace();
         }

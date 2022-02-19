@@ -9,28 +9,28 @@ package estructuras;
  *
  * @author jedar
  */
-public class Nodo {
-    private Usuario info;
+public class Nodo<T> {
+    private T info;
     private Nodo siguiente;
 
-    public Nodo(Usuario info) {
+    public Nodo(T info) {
         this.info = info;
     }
     
 
-    public Usuario getInfo() {
+    public T getInfo() {
         return info;
     }
 
-    public void setInfo(Usuario info) {
+    public void setInfo(T info) {
         this.info = info;
     }
 
-    public Nodo getSiguiente() {
+    public Nodo<T> getSiguiente() {
         return siguiente;
     }
 
-    public void setSiguiente(Nodo siguiente) {
+    public void setSiguiente(Nodo<T> siguiente) {
         this.siguiente = siguiente;
     }
     

@@ -9,15 +9,14 @@ package estructuras;
  *
  * @author jedar
  */
-public class Lista {
+public class Lista<T> {
     private int count;
-    private Nodo primero;
-    private Nodo ultimo;
-    public void insertar(String linea){
+    private Nodo<T> primero;
+    private Nodo<T> ultimo;
+    public void insertar(T info){
         
-        String[] valores = linea.split(", ");
-        Usuario nuevo = new Usuario(valores);
-        Nodo nodo = new Nodo(nuevo);
+       
+        Nodo<T> nodo = new Nodo<T>(info);
         if(this.primero == null){
             this.primero = nodo;
             this.ultimo = nodo;
@@ -28,7 +27,7 @@ public class Lista {
         this.count++;
     }   
     
-    public Nodo siguiente(Nodo nodo){
+    public Nodo<T> siguiente(Nodo nodo){
         return nodo.getSiguiente();
     }
 
@@ -40,7 +39,7 @@ public class Lista {
         this.count = count;
     }
 
-    public Nodo getPrimero() {
+    public Nodo<T> getPrimero() {
         return primero;
     }
 

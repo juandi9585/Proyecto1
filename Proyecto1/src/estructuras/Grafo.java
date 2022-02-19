@@ -16,7 +16,7 @@ public class Grafo {
     
     private Usuario[] usuarios;
     
-    private int[][] adyacencia;
+    private Integer[][] adyacencia;
 
     private Scanner scanner;
     public Grafo(String ruta) throws Exception {
@@ -25,23 +25,32 @@ public class Grafo {
         llenarUsuarios();
         llenarAdyacencia();
     }
+
+    public Grafo(File file) throws Exception {
+        this.scanner = new Scanner(file);
+        llenarUsuarios();
+        llenarAdyacencia();
+    }
+    
     
     private void llenarUsuarios(){        
         String linea= this.scanner.nextLine();
-            Lista usuariosLista = new Lista();
+            Lista<Usuario> usuariosLista = new Lista();
             while(this.scanner.hasNext()){
-                 linea= this.scanner.nextLine();
-                 if (linea.equals("Relaciones")){
-                     convertirArreglo(usuariosLista);
-                     return;
-                 }
-                 usuariosLista.insertar(linea);                
+                linea= this.scanner.nextLine();
+                if (linea.equals("Relaciones")){
+                    convertirArreglo(usuariosLista);
+                    return;
+                }
+                String[] valores = linea.split(", ");
+                Usuario nuevo = new Usuario(valores);                
+                usuariosLista.insertar(nuevo);                
             }            
     }
     
     private void convertirArreglo(Lista usuariosLista){
         this.usuarios = new Usuario[usuariosLista.getCount()];
-        Nodo nodo = usuariosLista.getPrimero();
+        Nodo<Usuario> nodo = usuariosLista.getPrimero();
         for (int i = 0; i < usuarios.length; i++) {
             usuarios[i] = nodo.getInfo();
             nodo = usuariosLista.siguiente(nodo);                      
@@ -51,7 +60,7 @@ public class Grafo {
     } 
     
     private void llenarAdyacencia(){
-        this.adyacencia = new int[this.usuarios.length][this.usuarios.length];
+        this.adyacencia = new Integer[this.usuarios.length][this.usuarios.length];
         while(this.scanner.hasNext()){
             String linea = this.scanner.nextLine();
             String[] arista = linea.split(", ");
@@ -73,6 +82,27 @@ public class Grafo {
         }
         return -1;
     }
+
+    public Usuario[] getUsuarios() {
+        return usuarios;
+    }
     
+    public Lista<String> getRelaciones(){
+        Lista<String> relaciones = new Lista<>();
+        for (int fila = 0; fila < adyacencia.length; fila++) {
+            for (int columna = fila; columna < adyacencia.length; columna++) {
+                if(this.adyacencia[fila][columna]!= null){
+                    int id1 = this.usuarios[fila].getId();
+                    int id2 = this.usuarios[columna].getId();
+                    
+                    String relacion = String.valueOf(id1)+ ", "+String.valueOf(id2)+", "+String.valueOf(this.adyacencia[fila][columna]);
+                    relaciones.insertar(relacion);
+                    
+                }
+            }
+        }
+        return relaciones;
+                
+    }
     
 }
